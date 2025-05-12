@@ -5,7 +5,7 @@ import {
   doc,
   onSnapshot,
   orderBy,
-  query,
+  query as fsQuery,
   serverTimestamp,
   updateDoc,
   where,
@@ -14,43 +14,43 @@ import React, { useEffect, useRef, useState } from "react";
 import { db } from "../Firebase";
 
 export default function useFireStore() {
-  let getCollection = (collectionName, _q) => {
-    let qRef = useRef(_q).current;
-    let [error, setError] = useState("");
-    let [loading, setLoading] = useState(false);
-    let [data, setData] = useState([]);
+  const getCollection = (collectionName, condition) => {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    useEffect(
-      function () {
-        setLoading(true);
-        let ref = collection(db, collectionName);
+    useEffect(() => {
+      if (!collectionName || !condition) return;
 
-        let queires = [];
-        if (qRef) {
-          queires.push(where(...qRef));
+      const colRef = collection(db, collectionName);
+
+      // Allow passing a single condition or an array of conditions
+      const conditions = Array.isArray(condition[0])
+        ? condition.map((c) => where(...c))
+        : [where(...condition)];
+
+      const q = fsQuery(colRef, ...conditions);
+
+      const unsub = onSnapshot(
+        q,
+        (snapshot) => {
+          const results = [];
+          snapshot.forEach((doc) => {
+            results.push({ id: doc.id, ...doc.data() });
+          });
+          setData(results);
+          setLoading(false);
+        },
+        (err) => {
+          setError(err.message);
+          setLoading(false);
         }
-        queires.push(orderBy("date", "desc"));
-        let q = query(ref, ...queires);
-        onSnapshot(q, (docs) => {
-          if (docs.empty) {
-            setError("No Result Found!");
-            setData([]);
-          } else {
-            let collectionDatas = [];
-            docs.forEach((doc) => {
-              let document = { id: doc.id, ...doc.data() };
-              collectionDatas.push(document);
-            });
-            setData(collectionDatas);
-            setLoading(false);
-            setError("");
-          }
-        });
-      },
-      [qRef]
-    );
+      );
 
-    return { error, loading, data };
+      return () => unsub();
+    }, [collectionName, JSON.stringify(condition)]);
+
+    return { data, loading, error };
   };
 
   //.............................

@@ -15,11 +15,15 @@ export default function LoginForm() {
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     try {
-      await SignIn(email, password);
-      navigate("/");
+      let result = await SignIn(email, password);
+      if (!result.success) {
+        return;
+      }
     } catch (err) {
       alert(err.message);
     }
+
+    navigate("/");
   };
 
   return (
@@ -30,8 +34,8 @@ export default function LoginForm() {
         </h2>
         <form onSubmit={handleEmailLogin} className="space-y-5">
           <div>
-            <label className="text-sm font-medium text-gray-600">Email</label>
             <input
+              placeholder="Email"
               type="email"
               className="w-full mt-1 px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-400"
               value={email}
@@ -40,10 +44,8 @@ export default function LoginForm() {
             />
           </div>
           <div>
-            <label className="text-sm font-medium text-gray-600">
-              Password
-            </label>
             <input
+              placeholder="Password"
               type="password"
               className="w-full mt-1 px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-400"
               value={password}
@@ -51,6 +53,7 @@ export default function LoginForm() {
               required
             />
           </div>
+          <h1 className="text-red-500 text-center">{signinError}</h1>
           <button
             type="submit"
             className="w-full py-2 rounded-xl bg-teal-500 hover:bg-teal-600 text-white font-semibold transition"

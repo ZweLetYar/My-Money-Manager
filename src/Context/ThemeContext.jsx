@@ -25,12 +25,6 @@ const ThemeContextProvider = ({ children }) => {
   };
 
   const isDark = state.theme === "dark";
-
-  return (
-    <ThemeContext.Provider value={{ ...state, changeTheme, isDark }}>
-      {children}
-    </ThemeContext.Provider>
-  );
 };
 
 export { ThemeContext, ThemeContextProvider };

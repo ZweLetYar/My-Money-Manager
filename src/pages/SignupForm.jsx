@@ -30,8 +30,8 @@ export default function LoginForm() {
         </h2>
         <form onSubmit={handleEmailSignup} className="space-y-5">
           <div>
-            <label className="text-sm font-medium text-gray-600">Email</label>
             <input
+              placeholder="Email"
               type="email"
               className="w-full mt-1 px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-400"
               value={email}
@@ -40,10 +40,8 @@ export default function LoginForm() {
             />
           </div>
           <div>
-            <label className="text-sm font-medium text-gray-600">
-              Password
-            </label>
             <input
+              placeholder="Password"
               type="password"
               className="w-full mt-1 px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-400"
               value={password}
@@ -78,13 +76,6 @@ export default function LoginForm() {
         </button>
 
         {error && <p className="text-red-500 text-sm mt-2">{error.message}</p>}
-
-        <div className="text-center text-sm text-gray-500 mt-4">
-          Don't have an account?{" "}
-          <a href="#" className="text-teal-600 font-medium">
-            Sign up
-          </a>
-        </div>
       </div>
     </div>
   );

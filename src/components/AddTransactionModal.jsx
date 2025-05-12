@@ -1,21 +1,55 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../Context/AuthContext";
+import useFireStore from "../hooks/useFireStore";
 
 export default function AddTransactionModal({ show, onClose }) {
+  let { user } = useContext(AuthContext);
+
+  let { addCollection } = useFireStore();
+
+  const [amount, setAmount] = useState("");
+
+  const parsedAmount = parseInt(amount);
+
+  const [note, setNote] = useState("");
+
   const categories = [
-    "Food & Drink",
-    "Shopping",
-    "Health",
-    "Housing",
-    "Transportation",
-    "Education",
-    "Entertainment",
-    "Personal",
-    "Others",
+    { type: "Expenses", name: "Food & Drink" },
+    { type: "Expenses", name: "Shopping" },
+    { type: "Expenses", name: "Health" },
+    { type: "Expenses", name: "Housing" },
+    { type: "Expenses", name: "Transportation" },
+    { type: "Expenses", name: "Education" },
+    { type: "Expenses", name: "Entertainment" },
+    { type: "Expenses", name: "Personal" },
+    { type: "Income", name: "Salary" },
   ];
 
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("Select Category");
+  const [transactionType, setTransactionType] = useState("Transaction Type");
   if (!show) return null;
+
+  let resetForm = () => {
+    setAmount("");
+    setNote("");
+    setSelected("Select Category");
+    setTransactionType("Transaction Type");
+  };
+
+  let addTransaction = (e) => {
+    e.preventDefault();
+    let data = {
+      amount: parsedAmount,
+      category: selected,
+      note,
+      transactionType,
+      userId: user.uid,
+    };
+    addCollection("Transaction", data);
+    resetForm();
+    onClose();
+  };
 
   return (
     // Background overlay with low opacity
@@ -43,11 +77,18 @@ export default function AddTransactionModal({ show, onClose }) {
           Add Transaction
         </h2>
 
-        <form className="flex flex-col gap-3">
+        <form className="flex flex-col gap-3" onSubmit={addTransaction}>
           <input
             type="number"
             placeholder="Amount"
             className="border p-2 rounded"
+            onChange={(e) => setAmount(e.target.value)}
+            value={amount}
+            onKeyDown={(e) => {
+              if (["e", "E", "+", "-", "."].includes(e.key)) {
+                e.preventDefault();
+              }
+            }}
           />
           <div className="relative w-full">
             <button
@@ -65,12 +106,13 @@ export default function AddTransactionModal({ show, onClose }) {
                   <li
                     key={i}
                     onClick={() => {
-                      setSelected(cat);
+                      setSelected(cat.name);
+                      setTransactionType(cat.type);
                       setIsOpen(false);
                     }}
                     className="p-2 hover:bg-teal-100 cursor-pointer"
                   >
-                    {cat}
+                    {cat.name}
                   </li>
                 ))}
                 <li className="p-2 text-teal-600 hover:underline cursor-pointer">
@@ -83,12 +125,16 @@ export default function AddTransactionModal({ show, onClose }) {
             type="text"
             placeholder="Note"
             className="border p-2 rounded"
+            onChange={(e) => setNote(e.target.value)}
+            value={note}
           />
-          <select className="border p-2 rounded">
-            <option value="income">Income</option>
-            <option value="expense">Expense</option>
-          </select>
 
+          <button
+            className="border p-2 w-full rounded text-left"
+            onClick={(e) => e.preventDefault()}
+          >
+            {transactionType}
+          </button>
           <button
             type="submit"
             className="bg-teal-500 text-white py-2 rounded mt-2"
@@ -98,7 +144,7 @@ export default function AddTransactionModal({ show, onClose }) {
         </form>
 
         <button
-          onClick={onClose}
+          onClick={resetForm}
           className="mt-4 text-sm text-gray-500 text-center w-full"
         >
           Cancel
