@@ -1,63 +1,61 @@
-import React from "react";
 import food from "../assets/western-food-svgrepo-com.svg";
 import shopping from "../assets/shopping-cart-svgrepo-com.svg";
 import dollor from "../assets/money-dollar-coin-svgrepo-com.svg";
+import bus from "../assets/bus-left-2-svgrepo-com.svg";
+import education from "../assets/education-svgrepo-com.svg";
+import health from "../assets/emergency-health-healthcare-hospital-kit-medical-svgrepo-com.svg";
+import house from "../assets/house-storm-2-svgrepo-com.svg";
+import personal from "../assets/personal-collection-svgrepo-com.svg";
+import entertainment from "../assets/television-movie-entertainment-svgrepo-com.svg";
+import { useContext } from "react";
+import { UserDataContext } from "../Context/UserDataContext";
+import { format } from "date-fns";
 
 export default function RecentTransaction() {
+  let { transactions } = useContext(UserDataContext);
+
+  const categoryIcons = {
+    Salary: dollor,
+    "Food & Drink": food,
+    Shopping: shopping,
+    Health: health,
+    Housing: house,
+    Transportation: bus,
+    Education: education,
+    Entertainment: entertainment,
+    Personal: personal,
+  };
+
   return (
     <div className="mt-7 h-[30%]">
       <h1 className="text-sm font-medium">Recent Transactions</h1>
       <div className="flex flex-col mt-4 gap-5 overflow-y-auto h-[150px]">
-        <div className="flex justify-between ">
-          <div className="flex gap-2 items-center">
-            <img src={food} alt="image" className="w-7 h-7 " />
-            <div>
-              <h1 className="text-sm font-semibold">Food & Drink</h1>
-              <h1 className="text-xs text-gray-700">Apr 22</h1>
-            </div>
-          </div>
-          <h1 className="text-sm">-5,000 MMK</h1>
-        </div>
-        <div className="flex justify-between ">
-          <div className="flex gap-2 items-center">
-            <img src={shopping} alt="image" className="w-7 h-7 " />
-            <div>
-              <h1 className="text-sm font-semibold">Shopping</h1>
-              <h1 className="text-xs text-gray-700">Apr 21</h1>
-            </div>
-          </div>
-          <h1 className="text-sm">-20,000 MMK</h1>
-        </div>
-        <div className="flex justify-between ">
-          <div className="flex gap-2 items-center">
-            <img src={dollor} alt="image" className="w-7 h-7 " />
-            <div>
-              <h1 className="text-sm font-semibold">Salary</h1>
-              <h1 className="text-xs text-gray-700">Apr 20</h1>
-            </div>
-          </div>
-          <h1 className="text-sm">+150,000 MMK</h1>
-        </div>
-        <div className="flex justify-between ">
-          <div className="flex gap-2 items-center">
-            <img src={dollor} alt="image" className="w-7 h-7 " />
-            <div>
-              <h1 className="text-sm font-semibold">Salary</h1>
-              <h1 className="text-xs text-gray-700">Apr 20</h1>
-            </div>
-          </div>
-          <h1 className="text-sm">+150,000 MMK</h1>
-        </div>
-        <div className="flex justify-between ">
-          <div className="flex gap-2 items-center">
-            <img src={dollor} alt="image" className="w-7 h-7 " />
-            <div>
-              <h1 className="text-sm font-semibold">Salary</h1>
-              <h1 className="text-xs text-gray-700">Apr 20</h1>
-            </div>
-          </div>
-          <h1 className="text-sm">+150,000 MMK</h1>
-        </div>
+        {transactions &&
+          transactions.map((t) => {
+            return (
+              <div className="flex justify-between " key={t.id}>
+                <div className="flex gap-2 items-center">
+                  <img
+                    src={categoryIcons[t.category] || dollor}
+                    alt="image"
+                    className="w-7 h-7 "
+                  />
+                  <div>
+                    <h1 className="text-sm font-semibold">{t.category}</h1>
+                    <h1 className="text-xs text-gray-700">
+                      {t.date
+                        ? format(t.date.toDate(), "MMM d")
+                        : "Invalid date"}
+                    </h1>
+                  </div>
+                </div>
+                <h1 className="text-sm">
+                  {t.transactionType == "Income" ? "+" : "-"}
+                  {Number(t.amount).toLocaleString()} MMK
+                </h1>
+              </div>
+            );
+          })}
       </div>
     </div>
   );

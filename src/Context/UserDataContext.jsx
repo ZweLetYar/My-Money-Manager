@@ -75,7 +75,10 @@ const UserDataContextProvider = ({ children }) => {
     error,
     loading,
     data: transactions,
-  } = getCollection("Transaction", user ? ["userId", "==", user.uid] : null);
+  } = getCollection("Transaction", user ? ["userId", "==", user.uid] : null, [
+    "date",
+    "desc",
+  ]);
 
   useEffect(() => {
     let totalIncome = 0;
@@ -95,7 +98,9 @@ const UserDataContextProvider = ({ children }) => {
   let balance = income - expenses;
 
   return (
-    <UserDataContext.Provider value={{ income, expenses, balance }}>
+    <UserDataContext.Provider
+      value={{ income, expenses, balance, transactions }}
+    >
       {children}
     </UserDataContext.Provider>
   );

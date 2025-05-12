@@ -14,7 +14,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { db } from "../Firebase";
 
 export default function useFireStore() {
-  const getCollection = (collectionName, condition) => {
+  const getCollection = (collectionName, condition, order = null) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -24,12 +24,14 @@ export default function useFireStore() {
 
       const colRef = collection(db, collectionName);
 
-      // Allow passing a single condition or an array of conditions
       const conditions = Array.isArray(condition[0])
         ? condition.map((c) => where(...c))
         : [where(...condition)];
 
-      const q = fsQuery(colRef, ...conditions);
+      // Optional orderBy support
+      const orderClause = order ? [orderBy(...order)] : [];
+
+      const q = fsQuery(colRef, ...conditions, ...orderClause);
 
       const unsub = onSnapshot(
         q,
@@ -42,13 +44,14 @@ export default function useFireStore() {
           setLoading(false);
         },
         (err) => {
+          console.error("Firestore error:", err.message);
           setError(err.message);
           setLoading(false);
         }
       );
 
       return () => unsub();
-    }, [collectionName, JSON.stringify(condition)]);
+    }, [collectionName, JSON.stringify(condition), JSON.stringify(order)]);
 
     return { data, loading, error };
   };
