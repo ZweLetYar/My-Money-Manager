@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import AddTransactionModal from "./AddTransactionModal";
+import { useNavigate } from "react-router-dom";
 
 export default function FourButton() {
   const [showModal, setShowModal] = useState(false);
+  let navigate = useNavigate();
 
   return (
     <>
@@ -30,7 +32,10 @@ export default function FourButton() {
           <h3 className="text-xs  mt-2">Add Transaction</h3>
         </div>
 
-        <div className="text-center w-1/4 flex flex-col items-center">
+        <div
+          className="text-center w-1/4 flex flex-col items-center cursor-pointer"
+          onClick={() => navigate("/dailydetails")}
+        >
           <button className="w-15 h-15 rounded-xl bg-gray-100 flex items-center justify-center bg-teal-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"

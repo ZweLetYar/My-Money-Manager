@@ -97,9 +97,25 @@ const UserDataContextProvider = ({ children }) => {
 
   let balance = income - expenses;
 
+  // Grouping function
+  const groupByDate = (transactions) => {
+    return transactions.reduce((groups, transaction) => {
+      // Ensure date is a string like '2025-05-13'
+      const dateStr = transaction.date.toDate
+        ? transaction.date.toDate().toISOString().split("T")[0] // Convert Firestore Timestamp to string
+        : transaction.date.split("T")[0]; // If already a string with time
+
+      if (!groups[dateStr]) {
+        groups[dateStr] = [];
+      }
+      groups[dateStr].push(transaction);
+      return groups;
+    }, {});
+  };
+
   return (
     <UserDataContext.Provider
-      value={{ income, expenses, balance, transactions }}
+      value={{ income, expenses, balance, transactions, groupByDate }}
     >
       {children}
     </UserDataContext.Provider>
