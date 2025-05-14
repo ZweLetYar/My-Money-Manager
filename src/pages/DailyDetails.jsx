@@ -100,12 +100,12 @@ import priceTag from "../assets/price-tag-svgrepo-com.svg";
 import { UserDataContext } from "../Context/UserDataContext";
 
 export default function DailyDetails() {
-  const { groupByDate, transactions, loading } = useContext(UserDataContext);
-  const groupedTransactions = groupByDate(transactions);
+  const { dailyTransactions, loading } = useContext(UserDataContext);
+
   const [searchDate, setSearchDate] = useState("");
 
   // Filter the grouped transactions by selected date
-  const filteredDates = Object.entries(groupedTransactions).filter(
+  const filteredDates = Object.entries(dailyTransactions).filter(
     ([date]) => searchDate === "" || date === searchDate
   );
 
@@ -158,7 +158,7 @@ export default function DailyDetails() {
                   <div className="flex flex-col gap-1 items-center w-[90%] ml-auto mr-auto border-y border-teal-700 py-3">
                     {txns.map((txn) => (
                       <div className="flex justify-between w-full" key={txn.id}>
-                        <h1 className="text-teal-800">{txn.note}</h1>
+                        <h1 className="text-teal-800 w-[60%]">{txn.note}</h1>
                         <h1 className="text-sm">
                           {txn.transactionType === "Income" ? "+" : "-"}
                           {Number(txn.amount).toLocaleString()} MMK

@@ -30,6 +30,11 @@ export default function RecentTransaction() {
     <div className="mt-7 h-[30%]">
       <h1 className="text-sm font-medium">Recent Transactions</h1>
       <div className="flex flex-col mt-4 gap-5 overflow-y-auto h-[150px]">
+        {transactions.length === 0 && (
+          <h1 className="text-gray-600 text-center mt-5 ">
+            No Transactons yet!
+          </h1>
+        )}
         {transactions &&
           transactions.map((t) => {
             return (
