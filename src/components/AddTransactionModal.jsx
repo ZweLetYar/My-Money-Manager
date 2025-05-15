@@ -23,6 +23,7 @@ export default function AddTransactionModal({ show, onClose }) {
     { type: "Expenses", name: "Entertainment" },
     { type: "Expenses", name: "Personal" },
     { type: "Income", name: "Salary" },
+    { type: "Income", name: "Freelance" },
   ];
 
   const [isOpen, setIsOpen] = useState(false);

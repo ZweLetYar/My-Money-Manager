@@ -74,8 +74,6 @@ const UserDataContextProvider = ({ children }) => {
   let [monthlyIncome, setMonthlyIncome] = useState(0);
   let [monthlyExpenses, setMonthlyExpenses] = useState(0);
 
-  let [currentMonth, setCurrentMonth] = useState("");
-
   const {
     error,
     loading,
@@ -126,9 +124,8 @@ const UserDataContextProvider = ({ children }) => {
       return;
     }
 
-    const month = new Date().toISOString().slice(0, 7); // "YYYY-MM"
-    const currentMonthTransactions = monthlyTransactions[month] || [];
-    setCurrentMonth(month);
+    const currentMonth = new Date().toISOString().slice(0, 7); // "YYYY-MM"
+    const currentMonthTransactions = monthlyTransactions[currentMonth] || [];
 
     let totalMonthlyIncome = 0;
     let totalMonthlyExpenses = 0;
@@ -179,7 +176,7 @@ const UserDataContextProvider = ({ children }) => {
         monthlyIncome,
         monthlyExpenses,
         monthlyBalance,
-        currentMonth,
+
         monthlyTransactions,
         loading,
         error,

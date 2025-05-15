@@ -54,7 +54,10 @@ export default function FourButton() {
           </button>
           <h3 className="text-xs  mt-2">Daily Details</h3>
         </div>
-        <div className="text-center w-1/4 flex flex-col items-center">
+        <div
+          className="text-center w-1/4 flex flex-col items-center"
+          onClick={() => navigate("/statistics")}
+        >
           <button className="w-15 h-15 rounded-xl bg-gray-100 flex items-center justify-center bg-teal-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import LoginForm from "../pages/LoginForm";
 import SignupForm from "../pages/SignupForm";
 import DailyDetails from "../pages/DailyDetails";
+import Statistics from "../pages/Statistics";
 
 export default function AppRoutes() {
   return (
@@ -13,6 +14,7 @@ export default function AppRoutes() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignupForm />} />
         <Route path="/dailydetails" element={<DailyDetails />} />
+        <Route path="/statistics" element={<Statistics />} />
       </Routes>
     </Layout>
   );
