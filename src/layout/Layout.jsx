@@ -1,9 +1,8 @@
-import React from "react";
 import Navbar from "../components/Navbar";
 
 export default function Layout({ children }) {
   return (
-    <div className="mx-7 overflow-y-hidden h-screen">
+    <div className="flex flex-col ml-auto mr-auto items-center overflow-hidden h-screen">
       <Navbar />
       <main>{children}</main>
     </div>

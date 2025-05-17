@@ -2,16 +2,37 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import useFireStore from "../hooks/useFireStore";
 
-export default function AddTransactionModal({ show, onClose }) {
+export default function AddTransactionModal({
+  show,
+  onClose,
+  isEdit,
+  tid,
+  tamount,
+  tcat,
+  tnote,
+  ttype,
+}) {
   let { user } = useContext(AuthContext);
 
-  let { addCollection } = useFireStore();
+  let { addCollection, updateDocument } = useFireStore();
 
   const [amount, setAmount] = useState("");
 
   const parsedAmount = parseInt(amount);
 
+  const [selected, setSelected] = useState("Select Category");
+  const [transactionType, setTransactionType] = useState("Transaction Type");
+
   const [note, setNote] = useState("");
+
+  useEffect(() => {
+    if (isEdit) {
+      setAmount(tamount);
+      setSelected(tcat);
+      setNote(tnote);
+      setTransactionType(ttype);
+    }
+  }, [isEdit]);
 
   const categories = [
     { type: "Expenses", name: "Food & Drink" },
@@ -27,8 +48,7 @@ export default function AddTransactionModal({ show, onClose }) {
   ];
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState("Select Category");
-  const [transactionType, setTransactionType] = useState("Transaction Type");
+
   if (!show) return null;
 
   let resetForm = () => {
@@ -47,8 +67,13 @@ export default function AddTransactionModal({ show, onClose }) {
       transactionType,
       userId: user.uid,
     };
-    addCollection("Transaction", data);
-    resetForm();
+
+    if (isEdit) {
+      updateDocument("Transaction", tid, data);
+    } else {
+      addCollection("Transaction", data);
+    }
+
     onClose();
   };
 
@@ -75,7 +100,7 @@ export default function AddTransactionModal({ show, onClose }) {
         </button>
 
         <h2 className="text-lg font-semibold mb-4 text-center">
-          Add Transaction
+          {isEdit ? "Edit" : "Add"} Transaction
         </h2>
 
         <form className="flex flex-col gap-3" onSubmit={addTransaction}>

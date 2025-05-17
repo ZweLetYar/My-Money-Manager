@@ -41,6 +41,7 @@ export default function ByCategory() {
     });
 
     const totals = {};
+    console.log(totals);
 
     filtered.forEach((t) => {
       totals[t.category] = (totals[t.category] || 0) + t.amount;
@@ -52,6 +53,8 @@ export default function ByCategory() {
     }));
   }, [transactions, selectedMonth, tType]);
 
+  console.log(data);
+
   return (
     <div className="flex flex-col items-center text-sm">
       <input
@@ -62,23 +65,26 @@ export default function ByCategory() {
         value={selectedMonth}
         className="w-[90%]"
       />
-      {!(data.length === 0) ? (
-        <div className="w-full h-[450px] bg-white rounded-2xl p-4 shadow text-xs mt-4">
-          <div className="flex justify-between items-center mb-2">
-            <h2 className="text-base font-semibold ">
-              {tType === "Expenses" ? "Expenses" : "Income"} by Category{" "}
-            </h2>
-            <button
-              className="text-teal-600 cursor-pointer  "
-              onClick={() => {
-                setTType((prev) =>
-                  prev === "Expenses" ? "Income" : "Expenses"
-                );
-              }}
-            >
-              /{tType === "Expenses" ? "view Income" : "view Expenses"}
-            </button>
+
+      <div className="w-full h-[450px] bg-white rounded-2xl p-4 shadow text-xs mt-4">
+        <div className="flex justify-between items-center mb-2">
+          <h2 className="text-base font-semibold ">
+            {tType === "Expenses" ? "Expenses" : "Income"} by Category{" "}
+          </h2>
+          <button
+            className="text-teal-600 cursor-pointer  "
+            onClick={() => {
+              setTType((prev) => (prev === "Expenses" ? "Income" : "Expenses"));
+            }}
+          >
+            /{tType === "Expenses" ? "view Income" : "view Expenses"}
+          </button>
+        </div>
+        {data.length === 0 ? (
+          <div className="text-center text-gray-500 mt-40">
+            No {tType.toLowerCase()} data for this month
           </div>
+        ) : (
           <ResponsiveContainer width="100%" height="90%">
             <BarChart
               data={data}
@@ -101,18 +107,14 @@ export default function ByCategory() {
               </Bar>
             </BarChart>
           </ResponsiveContainer>
-          <h2 className="text-md font-semibold  text-center ">
-            {selectedMonth.toLocaleString("en-US", {
-              month: "long",
-              year: "numeric",
-            })}
-          </h2>
-        </div>
-      ) : (
-        <div className="text-center text-gray-500 mt-20">
-          No {tType.toLowerCase()} data for this month
-        </div>
-      )}
+        )}
+        <h2 className="text-md font-semibold  text-center ">
+          {selectedMonth.toLocaleString("en-US", {
+            month: "long",
+            year: "numeric",
+          })}
+        </h2>
+      </div>
     </div>
   );
 }

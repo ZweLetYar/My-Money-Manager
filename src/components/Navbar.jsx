@@ -8,9 +8,9 @@ export default function Navbar() {
   const { displayName, logout } = useGoogleAuth();
   let { user } = useContext(AuthContext);
   return (
-    <div className="flex items-center justify-between my-5 border-b border-teal-600 pb-5">
+    <div className="flex items-center w-[85%] justify-between mb-5 mt-3 border-b border-teal-600 pb-3">
       <div>
-        <h1 className="font-semibold text-lg">My Money Manager (MMM)</h1>
+        <h1 className="font-semibold text-lg">My Money Manager</h1>
         <div className="text-sm flex gap-3">
           <img src={Men} alt="men svg" className="w-5 h-auto" />
           <h3> {displayName || (!user ? welcomeText : user.email)}</h3>
@@ -31,7 +31,7 @@ export default function Navbar() {
             d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
           />
         </svg>
-        <p className="text-xs text-teal-900">Log out</p>
+        {!!user && <p className="text-xs text-teal-900">Log out</p>}
       </div>
     </div>
   );

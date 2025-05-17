@@ -10,16 +10,19 @@ export default function LoginForm() {
   let navigate = useNavigate();
 
   const { login, user, error } = useGoogleAuth(); // <- use hook
-  const { error: signinError, loading, SignUp } = useSignup();
+  const { error: signupError, loading, SignUp } = useSignup();
 
   const handleEmailSignup = async (e) => {
     e.preventDefault();
     try {
-      await SignUp(email, password);
-      navigate("/");
+      let result = await SignUp(email, password);
+      if (!result.success) {
+        return;
+      }
     } catch (err) {
       alert(err.message);
     }
+    navigate("/");
   };
 
   return (
@@ -49,6 +52,7 @@ export default function LoginForm() {
               required
             />
           </div>
+          <h1 className="text-red-500 text-center">{signupError}</h1>
           <button
             type="submit"
             className="w-full py-2 rounded-xl bg-teal-500 hover:bg-teal-600 text-white font-semibold transition"

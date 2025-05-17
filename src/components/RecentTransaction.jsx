@@ -7,9 +7,11 @@ import health from "../assets/emergency-health-healthcare-hospital-kit-medical-s
 import house from "../assets/house-storm-2-svgrepo-com.svg";
 import personal from "../assets/personal-collection-svgrepo-com.svg";
 import entertainment from "../assets/television-movie-entertainment-svgrepo-com.svg";
+
 import { useContext } from "react";
 import { UserDataContext } from "../Context/UserDataContext";
 import { format } from "date-fns";
+import ThreeDotsMenu from "./ThreeDotsMenu";
 
 export default function RecentTransaction() {
   let { transactions } = useContext(UserDataContext);
@@ -29,7 +31,7 @@ export default function RecentTransaction() {
   return (
     <div className="mt-7 h-[30%]">
       <h1 className="text-sm font-medium">Recent Transactions</h1>
-      <div className="flex flex-col mt-4 gap-5 overflow-y-auto h-[150px]">
+      <div className="flex flex-col mt-4 gap-4 overflow-y-auto h-[200px]">
         {transactions.length === 0 && (
           <h1 className="text-gray-600 text-center mt-5 ">
             No Transactons yet!
@@ -54,10 +56,20 @@ export default function RecentTransaction() {
                     </h1>
                   </div>
                 </div>
-                <h1 className="text-sm">
-                  {t.transactionType == "Income" ? "+" : "-"}
-                  {Number(t.amount).toLocaleString()} MMK
-                </h1>
+                <div className="flex gap-1 items-center">
+                  <h1 className="text-sm">
+                    {t.transactionType == "Income" ? "+" : "-"}
+                    {Number(t.amount).toLocaleString()} MMK
+                  </h1>
+
+                  <ThreeDotsMenu
+                    tid={t.id}
+                    tamount={t.amount}
+                    tcat={t.category}
+                    tnote={t.note}
+                    ttype={t.transactionType}
+                  />
+                </div>
               </div>
             );
           })}

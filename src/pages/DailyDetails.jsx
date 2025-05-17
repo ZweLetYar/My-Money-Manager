@@ -98,6 +98,7 @@
 import { useContext, useState } from "react";
 import priceTag from "../assets/price-tag-svgrepo-com.svg";
 import { UserDataContext } from "../Context/UserDataContext";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function DailyDetails() {
   const { dailyTransactions, loading } = useContext(UserDataContext);
@@ -110,24 +111,20 @@ export default function DailyDetails() {
   );
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex justify-around items-center">
-        <h1 className="text-md font-medium">Daily Boucher</h1>
+    <div className="flex flex-col gap-5 ">
+      <h1 className="text-md font-medium">Daily Boucher</h1>
 
-        <input
-          type="date"
-          className="w-1/9 px-2 rounded border border-teal-700 focus:border-teal-900 bg-teal-400"
-          value={searchDate}
-          onChange={(e) => setSearchDate(e.target.value)}
-        />
-      </div>
+      <input
+        type="date"
+        className="w-full px-2 rounded border border-teal-700 focus:border-teal-900"
+        value={searchDate}
+        onChange={(e) => setSearchDate(e.target.value)}
+      />
 
       {loading ? (
-        <div className="flex items-center justify-center h-100">
-          <img src={priceTag} className="w-15 h-auto" alt="Loading" />
-        </div>
+        <LoadingSpinner />
       ) : (
-        <div className="flex flex-col gap-5 items-center w-[90%] ml-auto mr-auto h-[500px] overflow-y-auto">
+        <div className="flex flex-col gap-5 items-center w-full ml-auto mr-auto h-[500px] overflow-y-auto">
           {filteredDates.length > 0 ? (
             filteredDates.map(([date, txns]) => {
               const totalForDate = txns.reduce((sum, txn) => {
@@ -138,7 +135,7 @@ export default function DailyDetails() {
 
               return (
                 <div
-                  className="flex flex-col border rounded-md w-full border-teal-900 shadow-lg"
+                  className="flex flex-col border rounded-md w-full border-teal-800 shadow-lg"
                   key={date}
                 >
                   <div className="flex justify-between w-[90%] ml-auto mr-auto py-3 font-medium">
@@ -158,8 +155,8 @@ export default function DailyDetails() {
                   <div className="flex flex-col gap-1 items-center w-[90%] ml-auto mr-auto border-y border-teal-700 py-3">
                     {txns.map((txn) => (
                       <div className="flex justify-between w-full" key={txn.id}>
-                        <h1 className="text-teal-800 w-[60%]">{txn.note}</h1>
-                        <h1 className="text-sm">
+                        <h1 className="text-teal-800 w-[50%] ">{txn.note}</h1>
+                        <h1 className="text-sm w-[50%]  text-right">
                           {txn.transactionType === "Income" ? "+" : "-"}
                           {Number(txn.amount).toLocaleString()} MMK
                         </h1>
@@ -168,7 +165,7 @@ export default function DailyDetails() {
                   </div>
 
                   <div className="flex justify-between w-[90%] ml-auto mr-auto py-3 font-medium">
-                    <h1>Total Expenses</h1>
+                    <h1>Total Exp</h1>
                     <h1 className="text-sm">
                       {totalForDate.toLocaleString()} MMK
                     </h1>
