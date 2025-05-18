@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import {
   LineChart,
   Line,
@@ -20,6 +20,7 @@ const getMonthLabel = (monthStr) => {
 
 export default function MonthlyLineChart() {
   const { monthlyTransactions } = useContext(UserDataContext);
+  let [state, setState] = useState("Both");
 
   const chartData = useMemo(() => {
     if (!monthlyTransactions) return [];
@@ -64,10 +65,41 @@ export default function MonthlyLineChart() {
   }, [monthlyTransactions]);
 
   return (
-    <div className="w-full h-[490px] bg-white rounded-xl  text-xs p-4 shadow">
-      <h2 className="text-base font-semibold mb-7">
-        Income vs Expenses by Month
+    <div className="flex flex-col w-full h-[490px] bg-white rounded-xl  text-xs p-4 shadow">
+      <h2 className="text-base font-semibold mb-2">
+        {state == "Both"
+          ? "Income vs Expenses"
+          : state == "Income"
+          ? "Income"
+          : "Expenses"}{" "}
+        by Month
       </h2>
+      <div className="text-teal-600 ml-auto">
+        <span
+          className="cursor-pointer"
+          onClick={() => {
+            setState("Income");
+          }}
+        >
+          Income/
+        </span>
+        <span
+          className="cursor-pointer"
+          onClick={() => {
+            setState("Expenses");
+          }}
+        >
+          Expenses/
+        </span>
+        <span
+          className="cursor-pointer"
+          onClick={() => {
+            setState("Both");
+          }}
+        >
+          Both
+        </span>
+      </div>
       <ResponsiveContainer width="100%" height="90%">
         <LineChart
           data={chartData}
@@ -78,20 +110,24 @@ export default function MonthlyLineChart() {
           <YAxis tickFormatter={(v) => `${v.toLocaleString()} MMK`} />
           <Tooltip formatter={(value) => `${value.toLocaleString()} MMK`} />
           <Legend />
-          <Line
-            type="monotone"
-            dataKey="Income"
-            stroke="#34d399"
-            strokeWidth={3}
-            dot={{ r: 3 }}
-          />
-          <Line
-            type="monotone"
-            dataKey="Expenses"
-            stroke="#f87171"
-            strokeWidth={3}
-            dot={{ r: 3 }}
-          />
+          {(state == "Both" || state == "Income") && (
+            <Line
+              type="monotone"
+              dataKey="Income"
+              stroke="#14b8a6"
+              strokeWidth={3}
+              dot={{ r: 3 }}
+            />
+          )}
+          {(state == "Both" || state == "Expenses") && (
+            <Line
+              type="monotone"
+              dataKey="Expenses"
+              stroke="#f87171"
+              strokeWidth={3}
+              dot={{ r: 3 }}
+            />
+          )}
         </LineChart>
       </ResponsiveContainer>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AddTransactionModal from "./AddTransactionModal";
 import { useNavigate } from "react-router-dom";
 
@@ -76,7 +76,7 @@ export default function FourButton() {
           </button>
           <h3 className="text-xs  mt-2">Statistics</h3>
         </div>
-        <div className="text-center w-1/4 flex flex-col items-center">
+        <div className=" text-center w-1/4 flex flex-col items-center">
           <button className="w-15 h-15 rounded-xl bg-gray-100 flex items-center justify-center bg-teal-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -98,9 +98,10 @@ export default function FourButton() {
               />
             </svg>
           </button>
-          <h3 className="text-xs mt-2">Budget</h3>
+          <h3 className="text-xs mt-2">Setting</h3>
         </div>
       </div>
+
       <AddTransactionModal
         show={showModal}
         onClose={() => setShowModal(false)}

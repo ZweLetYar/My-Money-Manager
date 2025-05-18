@@ -41,18 +41,18 @@ export default function ThreeDotsMenu({ tid, tamount, tcat, tnote, ttype }) {
 
         {open && (
           <div className="absolute top-0 right-6 mt-2      ">
-            <div className="px-3 py-1 flex text-xs flex-col  items-center bg-teal-600 border rounded-sm shadow-lg">
+            <div className="px-10  flex text-sm flex-col text-center items-center bg-teal-500 border rounded-lg shadow-lg">
               <p
-                className="text-white cursor-pointer "
+                className="text-white cursor-pointer py-1 border-b w-full"
                 onClick={() => setShowModal(true)}
               >
                 Edit
               </p>
               <p
-                className="text-white cursor-pointer"
+                className="text-red-600 font-medium cursor-pointer py-1"
                 onClick={() => deleteTransaction(tid)}
               >
-                delete
+                Delete
               </p>
             </div>
           </div>

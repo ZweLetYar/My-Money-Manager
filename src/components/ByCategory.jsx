@@ -41,7 +41,6 @@ export default function ByCategory() {
     });
 
     const totals = {};
-    console.log(totals);
 
     filtered.forEach((t) => {
       totals[t.category] = (totals[t.category] || 0) + t.amount;
@@ -52,8 +51,6 @@ export default function ByCategory() {
       amount,
     }));
   }, [transactions, selectedMonth, tType]);
-
-  console.log(data);
 
   return (
     <div className="flex flex-col items-center text-sm">
