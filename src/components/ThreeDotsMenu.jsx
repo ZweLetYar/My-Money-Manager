@@ -40,7 +40,7 @@ export default function ThreeDotsMenu({ tid, tamount, tcat, tnote, ttype }) {
         </button>
 
         {open && (
-          <div className="absolute top-0 right-6 mt-2      ">
+          <div className="absolute top-0 right-6 mt-2  z-30    ">
             <div className="px-10  flex text-sm flex-col text-center items-center bg-teal-500 border rounded-lg shadow-lg">
               <p
                 className="text-white cursor-pointer py-1 border-b w-full"

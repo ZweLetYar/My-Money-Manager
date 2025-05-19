@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function FourButton() {
   const [showModal, setShowModal] = useState(false);
   let navigate = useNavigate();
+  const [showSettings, setShowSettings] = useState(false);
 
   return (
     <>
@@ -76,7 +77,10 @@ export default function FourButton() {
           </button>
           <h3 className="text-xs  mt-2">Statistics</h3>
         </div>
-        <div className=" text-center w-1/4 flex flex-col items-center">
+        <div
+          className=" text-center w-1/4 flex flex-col items-center"
+          onClick={() => setShowSettings(true)}
+        >
           <button className="w-15 h-15 rounded-xl bg-gray-100 flex items-center justify-center bg-teal-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -99,6 +103,44 @@ export default function FourButton() {
             </svg>
           </button>
           <h3 className="text-xs mt-2">Setting</h3>
+        </div>
+      </div>
+
+      {/* Background overlay */}
+      {showSettings && (
+        <div
+          className="fixed inset-0  bg-opacity-40 backdrop-blur-xs z-40"
+          onClick={() => setShowSettings(false)}
+        />
+      )}
+
+      {/* Side panel */}
+      <div
+        className={`fixed top-0 right-0 h-full w-60 bg-teal-600 shadow-lg z-50 transform transition-transform duration-300 ${
+          showSettings ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="p-6">
+          <h2 className="text-xl font-bold mb-4">Settings</h2>
+          <form>
+            {/* Your form fields here */}
+            <div className="mb-4">
+              <label className="block mb-1">Username</label>
+              <input
+                type="text"
+                className="w-full border border-gray-300 rounded px-3 py-2"
+                placeholder="Enter your username"
+              />
+            </div>
+            {/* Add more form fields as needed */}
+            <button
+              type="button"
+              className="px-4 py-2 bg-teal-500 text-white rounded"
+              onClick={() => setShowSettings(false)}
+            >
+              Save & Close
+            </button>
+          </form>
         </div>
       </div>
 
