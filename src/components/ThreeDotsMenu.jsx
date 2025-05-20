@@ -1,13 +1,15 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import threeDots from "../assets/three-dots-svgrepo-com.svg";
 import useFireStore from "../hooks/useFireStore";
 import AddTransactionModal from "./AddTransactionModal";
+import { ThemeContext } from "../Context/ThemeContext";
 
 export default function ThreeDotsMenu({ tid, tamount, tcat, tnote, ttype }) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef();
   const [showModal, setShowModal] = useState(false);
   const { deleteDocument } = useFireStore();
+  const { isPink, isOrange, isSkyblue, isIndigo } = useContext(ThemeContext);
 
   //delete transaction
   let deleteTransaction = async (id) => {
@@ -41,7 +43,19 @@ export default function ThreeDotsMenu({ tid, tamount, tcat, tnote, ttype }) {
 
         {open && (
           <div className="absolute top-0 right-6 mt-2  z-30    ">
-            <div className="px-10  flex text-sm flex-col text-center items-center bg-teal-500 border rounded-lg shadow-lg">
+            <div
+              className={`px-10  flex text-sm flex-col text-center items-center   rounded-lg shadow-lg ${
+                isPink
+                  ? "bg-pink-400"
+                  : isOrange
+                  ? "bg-orange-400"
+                  : isSkyblue
+                  ? "bg-sky-400"
+                  : isIndigo
+                  ? "bg-indigo-400"
+                  : "bg-teal-600"
+              }`}
+            >
               <p
                 className="text-white cursor-pointer py-1 border-b w-full"
                 onClick={() => setShowModal(true)}

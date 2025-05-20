@@ -19,3 +19,8 @@
 
   font-style: normal;
 }
+
+/* In your index.css or global.css file */
+:root {
+  --vh: 100%;
+}

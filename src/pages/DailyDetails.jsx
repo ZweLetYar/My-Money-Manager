@@ -3,10 +3,12 @@ import priceTag from "../assets/price-tag-svgrepo-com.svg";
 import { UserDataContext } from "../Context/UserDataContext";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "../Context/ThemeContext";
 
 export default function DailyDetails() {
   const { dailyTransactions, loading } = useContext(UserDataContext);
 
+  let { isPink, isOrange, isSkyblue, isIndigo } = useContext(ThemeContext);
   const [searchDate, setSearchDate] = useState("");
 
   // Filter the grouped transactions by selected date
@@ -38,15 +40,17 @@ export default function DailyDetails() {
         </svg>
       </div>
       <div className="flex flex-col gap-5 ">
-        <h1 className="text-md font-medium">Daily Boucher</h1>
+        <div className="flex justify-between">
+          <h1 className="text-md font-medium">Daily Boucher</h1>
 
-        <input
-          type="date"
-          className="w-full px-2 rounded border border-teal-700 focus:border-teal-900"
-          value={searchDate}
-          onChange={(e) => setSearchDate(e.target.value)}
-        />
-
+          <input
+            type="date"
+            placeholder="Searched By Date"
+            className="w-1/7 px-2 rounded border border-teal-700 focus:border-teal-900"
+            value={searchDate}
+            onChange={(e) => setSearchDate(e.target.value)}
+          />
+        </div>
         {loading ? (
           <LoadingSpinner />
         ) : (
@@ -68,12 +72,36 @@ export default function DailyDetails() {
                       <h1>{date}</h1>
                       <div className="flex">
                         {[...Array(3)].map((_, i) => (
-                          <img
+                          <svg
                             key={i}
-                            src={priceTag}
-                            alt="price Tag"
-                            className="w-5 h-auto"
-                          />
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill={`${
+                              isPink
+                                ? "pink"
+                                : isOrange
+                                ? "orange"
+                                : isSkyblue
+                                ? "cyan"
+                                : isIndigo
+                                ? "indigo"
+                                : "teal"
+                            }`}
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="size-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M6 6h.008v.008H6V6Z"
+                            />
+                          </svg>
                         ))}
                       </div>
                     </div>
@@ -84,7 +112,21 @@ export default function DailyDetails() {
                           className="flex justify-between w-full"
                           key={txn.id}
                         >
-                          <h1 className="text-teal-800 w-[50%] ">{txn.note}</h1>
+                          <h1
+                            className={`w-[50%] ${
+                              isPink
+                                ? "text-pink-800"
+                                : isOrange
+                                ? "text-orange-800"
+                                : isSkyblue
+                                ? "text-sky-800"
+                                : isIndigo
+                                ? "text-indigo-800"
+                                : "text-teal-800"
+                            }`}
+                          >
+                            {txn.note}
+                          </h1>
                           <h1 className="text-sm w-[50%]  text-right">
                             {txn.transactionType === "Income" ? "+" : "-"}
                             {Number(txn.amount).toLocaleString()} MMK

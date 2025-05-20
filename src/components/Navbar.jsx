@@ -2,13 +2,28 @@ import React, { useContext } from "react";
 import Men from "../assets/avatar-man-profile-user-8-svgrepo-com.svg";
 import useGoogleAuth from "../hooks/useGoogleAuth";
 import { AuthContext } from "../Context/AuthContext";
+import { ThemeContext } from "../Context/ThemeContext";
 
 export default function Navbar() {
   const welcomeText = "Welcome From MMM";
   const { displayName, logout } = useGoogleAuth();
   let { user } = useContext(AuthContext);
+  let { isPink, isOrange, isSkyblue, isIndigo } = useContext(ThemeContext);
   return (
-    <div className="flex items-center w-[85%] justify-between mb-5 mt-3 border-b border-teal-600 pb-3">
+    <div
+      className={`flex items-center w-[85%] justify-between rounded-sm mb-5 mt-3  text-white p-3 ${
+        isPink
+          ? "bg-pink-400"
+          : isOrange
+          ? "bg-orange-400"
+          : isSkyblue
+          ? "bg-sky-400"
+          : isIndigo
+          ? "bg-indigo-400"
+          : "bg-teal-400"
+      }
+            } `}
+    >
       <div>
         <h1 className="font-semibold text-lg">My Money Manager</h1>
         <div className="text-sm flex gap-3">
@@ -23,7 +38,18 @@ export default function Navbar() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="size-8 block bg-teal-600 rounded-full"
+          className={`size-8 block  rounded-full ${
+            isPink
+              ? "bg-pink-800"
+              : isOrange
+              ? "bg-orange-800"
+              : isSkyblue
+              ? "bg-sky-800"
+              : isIndigo
+              ? "bg-indigo-800"
+              : "bg-teal-800"
+          }
+            } `}
         >
           <path
             strokeLinecap="round"
@@ -31,7 +57,7 @@ export default function Navbar() {
             d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
           />
         </svg>
-        {!!user && <p className="text-xs text-teal-900">Log out</p>}
+        {!!user && <p className="text-xs">Log out</p>}
       </div>
     </div>
   );

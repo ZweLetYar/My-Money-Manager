@@ -1,18 +1,32 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import AddTransactionModal from "./AddTransactionModal";
 import { useNavigate } from "react-router-dom";
+import ThemeSetting from "./ThemeSetting";
+import CurrencySetting from "./CurrencySetting";
+import { ThemeContext } from "../Context/ThemeContext";
 
 export default function FourButton() {
   const [showModal, setShowModal] = useState(false);
   let navigate = useNavigate();
   const [showSettings, setShowSettings] = useState(false);
+  let { isPink, isOrange, isSkyblue, isIndigo } = useContext(ThemeContext);
 
   return (
     <>
       <div className="flex mt-7">
         <div className="text-center w-1/4 flex flex-col items-center">
           <button
-            className="w-15 h-15 rounded-xl bg-gray-100 flex items-center justify-center bg-teal-500"
+            className={`w-15 h-15  rounded-xl bg-gray-100 flex items-center justify-center ${
+              isPink
+                ? "bg-pink-400"
+                : isOrange
+                ? "bg-orange-400"
+                : isSkyblue
+                ? "bg-sky-400"
+                : isIndigo
+                ? "bg-indigo-400"
+                : "bg-teal-500"
+            } `}
             onClick={() => setShowModal(true)}
           >
             <svg
@@ -21,7 +35,7 @@ export default function FourButton() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-7 "
+              className="size-7 text-white "
             >
               <path
                 strokeLinecap="round"
@@ -37,14 +51,26 @@ export default function FourButton() {
           className="text-center w-1/4 flex flex-col items-center cursor-pointer"
           onClick={() => navigate("/dailydetails")}
         >
-          <button className="w-15 h-15 rounded-xl bg-gray-100 flex items-center justify-center bg-teal-500">
+          <button
+            className={`w-15 h-15 rounded-xl bg-gray-100 flex items-center justify-center ${
+              isPink
+                ? "bg-pink-400"
+                : isOrange
+                ? "bg-orange-400"
+                : isSkyblue
+                ? "bg-sky-400"
+                : isIndigo
+                ? "bg-indigo-400"
+                : "bg-teal-500"
+            } `}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-7"
+              className="size-7 text-white"
             >
               <path
                 strokeLinecap="round"
@@ -59,14 +85,26 @@ export default function FourButton() {
           className="text-center w-1/4 flex flex-col items-center"
           onClick={() => navigate("/statistics")}
         >
-          <button className="w-15 h-15 rounded-xl bg-gray-100 flex items-center justify-center bg-teal-500">
+          <button
+            className={`w-15 h-15 rounded-xl bg-gray-100 flex items-center justify-center ${
+              isPink
+                ? "bg-pink-400"
+                : isOrange
+                ? "bg-orange-400"
+                : isSkyblue
+                ? "bg-sky-400"
+                : isIndigo
+                ? "bg-indigo-400"
+                : "bg-teal-500"
+            } `}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-7"
+              className="size-7 text-white"
             >
               <path
                 strokeLinecap="round"
@@ -81,14 +119,26 @@ export default function FourButton() {
           className=" text-center w-1/4 flex flex-col items-center"
           onClick={() => setShowSettings(true)}
         >
-          <button className="w-15 h-15 rounded-xl bg-gray-100 flex items-center justify-center bg-teal-500">
+          <button
+            className={`w-15 h-15 rounded-xl bg-gray-100 flex items-center justify-center ${
+              isPink
+                ? "bg-pink-400"
+                : isOrange
+                ? "bg-orange-400"
+                : isSkyblue
+                ? "bg-sky-400"
+                : isIndigo
+                ? "bg-indigo-400"
+                : "bg-teal-500"
+            } `}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-7"
+              className="size-7 text-white"
             >
               <path
                 strokeLinecap="round"
@@ -116,31 +166,45 @@ export default function FourButton() {
 
       {/* Side panel */}
       <div
-        className={`fixed top-0 right-0 h-full w-60 bg-teal-600 shadow-lg z-50 transform transition-transform duration-300 ${
+        className={`fixed top-0 right-0 h-full w-60  shadow-lg z-50 transform transition-transform duration-300 ${
           showSettings ? "translate-x-0" : "translate-x-full"
+        } ${
+          isPink
+            ? "bg-pink-400"
+            : isOrange
+            ? "bg-orange-400"
+            : isSkyblue
+            ? "bg-sky-400"
+            : isIndigo
+            ? "bg-indigo-400"
+            : "bg-teal-600"
         }`}
       >
-        <div className="p-6">
-          <h2 className="text-xl font-bold mb-4">Settings</h2>
-          <form>
-            {/* Your form fields here */}
-            <div className="mb-4">
-              <label className="block mb-1">Username</label>
-              <input
-                type="text"
-                className="w-full border border-gray-300 rounded px-3 py-2"
-                placeholder="Enter your username"
-              />
-            </div>
-            {/* Add more form fields as needed */}
-            <button
-              type="button"
-              className="px-4 py-2 bg-teal-500 text-white rounded"
-              onClick={() => setShowSettings(false)}
-            >
-              Save & Close
-            </button>
-          </form>
+        <button
+          onClick={() => setShowSettings(false)}
+          className="ml-auto mt-4 me-4 block cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-6 text-white"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18 18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <div className="px-6">
+          <h2 className="text-xl  font-bold text-white mb-4">Settings</h2>
+          <ThemeSetting />
+          <hr className="my-5 h-px bg-gradient-to-r from-green-400 via-gray-200 to-blue-400 border-0" />
+          <CurrencySetting />
+          <hr className="my-5 h-px bg-gradient-to-r from-green-400 via-gray-200 to-blue-400 border-0" />
         </div>
       </div>
 
