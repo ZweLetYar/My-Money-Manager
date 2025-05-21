@@ -1,4 +1,5 @@
 import food from "../assets/western-food-svgrepo-com.svg";
+import snack from "../assets/snack-fast-food-svgrepo-com.svg";
 import shopping from "../assets/shopping-cart-svgrepo-com.svg";
 import dollor from "../assets/money-dollar-coin-svgrepo-com.svg";
 import bus from "../assets/bus-left-2-svgrepo-com.svg";
@@ -6,6 +7,8 @@ import education from "../assets/education-svgrepo-com.svg";
 import health from "../assets/emergency-health-healthcare-hospital-kit-medical-svgrepo-com.svg";
 import house from "../assets/house-storm-2-svgrepo-com.svg";
 import personal from "../assets/personal-collection-svgrepo-com.svg";
+import phone from "../assets/smartphone-rotate-2-svgrepo-com.svg";
+import charity from "../assets/loving-charity-svgrepo-com.svg";
 import entertainment from "../assets/television-movie-entertainment-svgrepo-com.svg";
 
 import { useContext } from "react";
@@ -18,8 +21,11 @@ export default function RecentTransaction() {
 
   const categoryIcons = {
     Salary: dollor,
+    "Daily Meals": food,
     "Food & Drink": food,
+    "Snack & Drink": snack,
     Shopping: shopping,
+    Charity: charity,
     Health: health,
     Housing: house,
     Transportation: bus,

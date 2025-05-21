@@ -4,12 +4,15 @@ import App from "./App.jsx";
 import { AuthContextProvider } from "./Context/AuthContext.jsx";
 import { UserDataContextProvider } from "./Context/UserDataContext.jsx";
 import { ThemeContextProvider } from "./Context/ThemeContext.jsx";
+import { VisibleContextProvider } from "./Context/VisibleContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <AuthContextProvider>
     <ThemeContextProvider>
       <UserDataContextProvider>
-        <App />
+        <VisibleContextProvider>
+          <App />
+        </VisibleContextProvider>
       </UserDataContextProvider>
     </ThemeContextProvider>
   </AuthContextProvider>
