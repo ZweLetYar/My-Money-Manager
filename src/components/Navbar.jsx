@@ -3,10 +3,11 @@ import Men from "../assets/avatar-man-profile-user-8-svgrepo-com.svg";
 import useGoogleAuth from "../hooks/useGoogleAuth";
 import { AuthContext } from "../Context/AuthContext";
 import { ThemeContext } from "../Context/ThemeContext";
+import logo from "../assets/logo.png";
 
 export default function Navbar() {
   const welcomeText = "Welcome From MMM";
-  const { displayName, logout } = useGoogleAuth();
+  const { displayName } = useGoogleAuth();
   let { user } = useContext(AuthContext);
   let { isPink, isOrange, isSkyblue, isIndigo } = useContext(ThemeContext);
   return (
@@ -31,34 +32,22 @@ export default function Navbar() {
           <h3> {displayName || (!user ? welcomeText : user.email)}</h3>
         </div>
       </div>
-      <div className=" flex flex-col items-center  text-white" onClick={logout}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className={`size-8 block  rounded-full ${
-            isPink
-              ? "bg-pink-800"
-              : isOrange
-              ? "bg-orange-800"
-              : isSkyblue
-              ? "bg-sky-800"
-              : isIndigo
-              ? "bg-indigo-800"
-              : "bg-teal-800"
-          }
-            } `}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-          />
-        </svg>
-        {!!user && <p className="text-xs">Log out</p>}
-      </div>
+
+      <img
+        src={logo}
+        alt="logo"
+        className={`w-8 rounded-md border border-3 ${
+          isPink
+            ? "border-pink-800"
+            : isOrange
+            ? "border-orange-800"
+            : isSkyblue
+            ? "border-sky-800"
+            : isIndigo
+            ? "border-indigo-800"
+            : "border-teal-800"
+        }`}
+      />
     </div>
   );
 }

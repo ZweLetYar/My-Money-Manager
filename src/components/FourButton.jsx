@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ThemeSetting from "./ThemeSetting";
 import CurrencySetting from "./CurrencySetting";
 import { ThemeContext } from "../Context/ThemeContext";
+import LogOut from "./LogOut&Contact";
 
 export default function FourButton() {
   const [showModal, setShowModal] = useState(false);
@@ -205,6 +206,7 @@ export default function FourButton() {
           <hr className="my-5 h-px bg-gradient-to-r from-green-400 via-gray-200 to-blue-400 border-0" />
           <CurrencySetting />
           <hr className="my-5 h-px bg-gradient-to-r from-green-400 via-gray-200 to-blue-400 border-0" />
+          <LogOut />
         </div>
       </div>
 
