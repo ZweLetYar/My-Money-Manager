@@ -10,6 +10,7 @@ import {
   CartesianGrid,
 } from "recharts";
 import { UserDataContext } from "../Context/UserDataContext";
+import { CurrencyContext } from "../Context/CurrencyContext";
 
 // Helper to convert "2025-05" to "May"
 const getMonthLabel = (monthStr) => {
@@ -20,6 +21,7 @@ const getMonthLabel = (monthStr) => {
 
 export default function MonthlyLineChart() {
   const { monthlyTransactions } = useContext(UserDataContext);
+  const { cur } = useContext(CurrencyContext);
   let [state, setState] = useState("Both");
 
   const chartData = useMemo(() => {
@@ -107,8 +109,8 @@ export default function MonthlyLineChart() {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="month" />
-          <YAxis tickFormatter={(v) => `${v.toLocaleString()} MMK`} />
-          <Tooltip formatter={(value) => `${value.toLocaleString()} MMK`} />
+          <YAxis tickFormatter={(v) => `${v.toLocaleString()} ${cur}`} />
+          <Tooltip formatter={(value) => `${value.toLocaleString()} ${cur} `} />
           <Legend />
           {(state == "Both" || state == "Income") && (
             <Line

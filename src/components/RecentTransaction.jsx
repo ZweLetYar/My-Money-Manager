@@ -15,15 +15,19 @@ import { useContext } from "react";
 import { UserDataContext } from "../Context/UserDataContext";
 import { format } from "date-fns";
 import ThreeDotsMenu from "./ThreeDotsMenu";
+import { CurrencyContext } from "../Context/CurrencyContext";
 
 export default function RecentTransaction() {
   let { transactions } = useContext(UserDataContext);
+
+  let { cur } = useContext(CurrencyContext);
 
   const categoryIcons = {
     Salary: dollor,
     "Daily Meals": food,
     "Food & Drink": food,
     "Snack & Drink": snack,
+    "Phone Bill": phone,
     Shopping: shopping,
     Charity: charity,
     Health: health,
@@ -65,7 +69,7 @@ export default function RecentTransaction() {
                 <div className="flex gap-1 items-center">
                   <h1 className="text-sm">
                     {t.transactionType == "Income" ? "+" : "-"}
-                    {Number(t.amount).toLocaleString()} MMK
+                    {Number(t.amount).toLocaleString()} {cur}
                   </h1>
 
                   <ThreeDotsMenu

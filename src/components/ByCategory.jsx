@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
+import { CurrencyContext } from "../Context/CurrencyContext";
 
 const COLORS = [
   "#60a5fa", // blue
@@ -23,6 +24,7 @@ const COLORS = [
 
 export default function ByCategory() {
   const { transactions } = useContext(UserDataContext);
+  let { cur } = useContext(CurrencyContext);
   const currentMonth = new Date().toISOString().slice(0, 7); // e.g., "2025-05"
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   const [tType, setTType] = useState("Expenses");
@@ -90,10 +92,12 @@ export default function ByCategory() {
             >
               <XAxis
                 type="number"
-                tickFormatter={(value) => `${value.toLocaleString()} MMK`}
+                tickFormatter={(value) => `${value.toLocaleString() + cur}`}
               />
               <YAxis type="category" dataKey="category" width={100} />
-              <Tooltip formatter={(value) => `${value.toLocaleString()} MMK`} />
+              <Tooltip
+                formatter={(value) => `${value.toLocaleString() + cur}`}
+              />
               <Bar dataKey="amount" radius={[0, 10, 10, 0]}>
                 {data.map((entry, index) => (
                   <Cell

@@ -5,14 +5,17 @@ import { AuthContextProvider } from "./Context/AuthContext.jsx";
 import { UserDataContextProvider } from "./Context/UserDataContext.jsx";
 import { ThemeContextProvider } from "./Context/ThemeContext.jsx";
 import { VisibleContextProvider } from "./Context/VisibleContext.jsx";
+import { CurrencyContextProvider } from "./Context/CurrencyContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <AuthContextProvider>
     <ThemeContextProvider>
       <UserDataContextProvider>
-        <VisibleContextProvider>
-          <App />
-        </VisibleContextProvider>
+        <CurrencyContextProvider>
+          <VisibleContextProvider>
+            <App />
+          </VisibleContextProvider>
+        </CurrencyContextProvider>
       </UserDataContextProvider>
     </ThemeContextProvider>
   </AuthContextProvider>

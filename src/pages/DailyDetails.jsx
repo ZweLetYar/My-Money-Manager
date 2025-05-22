@@ -4,11 +4,13 @@ import { UserDataContext } from "../Context/UserDataContext";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../Context/ThemeContext";
+import { CurrencyContext } from "../Context/CurrencyContext";
 
 export default function DailyDetails() {
   const { dailyTransactions, loading } = useContext(UserDataContext);
 
   let { isPink, isOrange, isSkyblue, isIndigo } = useContext(ThemeContext);
+  let { cur } = useContext(CurrencyContext);
   const [searchDate, setSearchDate] = useState("");
 
   // Filter the grouped transactions by selected date
@@ -129,7 +131,7 @@ export default function DailyDetails() {
                           </h1>
                           <h1 className="text-sm w-[50%]  text-right">
                             {txn.transactionType === "Income" ? "+" : "-"}
-                            {Number(txn.amount).toLocaleString()} MMK
+                            {Number(txn.amount).toLocaleString()} {cur}
                           </h1>
                         </div>
                       ))}
@@ -138,7 +140,7 @@ export default function DailyDetails() {
                     <div className="flex justify-between w-[90%] ml-auto mr-auto py-3 font-medium">
                       <h1>Total Exp</h1>
                       <h1 className="text-sm">
-                        {totalForDate.toLocaleString()} MMK
+                        {totalForDate.toLocaleString()} {cur}
                       </h1>
                     </div>
                   </div>

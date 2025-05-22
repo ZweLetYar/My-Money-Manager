@@ -10,12 +10,14 @@ import {
   CartesianGrid,
   Legend,
 } from "recharts";
+import { CurrencyContext } from "../Context/CurrencyContext";
 
 export default function ByDate() {
   const { transactions } = useContext(UserDataContext);
   const currentMonth = new Date().toISOString().slice(0, 7);
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   let [state, setState] = useState("Both");
+  const { cur } = useContext(CurrencyContext);
 
   const data = useMemo(() => {
     if (!transactions || transactions.length === 0) return [];
@@ -93,12 +95,11 @@ export default function ByDate() {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="date" tick={{ fontSize: 12 }} />
               <YAxis
-                tickFormatter={(value) => `${value.toLocaleString()} MMK`}
-                width={80}
+                tickFormatter={(value) => `${value.toLocaleString()} ${cur}`}
               />
               <Tooltip
                 formatter={(value, name) => [
-                  `${value.toLocaleString()} MMK`,
+                  `${value.toLocaleString()} ${cur}`,
                   name === "income" ? "Income" : "Expenses",
                 ]}
                 labelFormatter={(label) => new Date(label).toLocaleDateString()}

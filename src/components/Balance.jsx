@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import { UserDataContext } from "../Context/UserDataContext";
 import { VisibleContext } from "../Context/VisibleContext";
+import { CurrencyContext } from "../Context/CurrencyContext";
 
 export default function Balance() {
   let { monthlyBalance } = useContext(UserDataContext);
   let { isNotVisible, changeVisible } = useContext(VisibleContext);
+  let { cur } = useContext(CurrencyContext);
 
   const currentMonth = new Date().toLocaleString("en-US", {
     month: "long",
@@ -47,7 +49,7 @@ export default function Balance() {
       </div>
       <h1 className="text-2xl font-semibold">
         {!isNotVisible ? Number(monthlyBalance).toLocaleString() : "*******"}{" "}
-        MMK
+        {cur}
       </h1>
     </div>
   );

@@ -1,24 +1,38 @@
-import React, { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import US from "../assets/4x3/us.svg";
 import EU from "../assets/4x3/eu.svg";
 import MM from "../assets/4x3/mm.svg";
 import JP from "../assets/4x3/jp.svg";
 import SG from "../assets/4x3/sg.svg";
+import { CurrencyContext } from "../Context/CurrencyContext";
 
 export default function CurrencySelectWithFlags() {
+  let { changeCurrency, cur } = useContext(CurrencyContext);
+
   const currencies = [
+    { code: "MMK", name: "Kyat", flag: MM },
     { code: "USD", name: "US Dollar", flag: US },
     { code: "EUR", name: "Euro", flag: EU },
-    { code: "MMK", name: "Kyat", flag: MM },
+
     { code: "JPY", name: "Yen", flag: JP },
     { code: "SGD", name: "Singapore Dollar", flag: SG },
   ];
 
   const [selected, setSelected] = useState(currencies[0]);
+
+  useEffect(() => {
+    currencies.map((c) => {
+      if (cur === c.code) {
+        setSelected(c);
+      }
+    });
+  }, [cur]);
+
   const [open, setOpen] = useState(false);
 
-  const handleSelect = (currency) => {
+  const handleSelect = (currency, code) => {
     setSelected(currency);
+    changeCurrency(code);
     setOpen(false);
   };
 
@@ -65,7 +79,9 @@ export default function CurrencySelectWithFlags() {
             <div
               key={currency.code}
               className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 cursor-pointer"
-              onClick={() => handleSelect(currency)}
+              onClick={() => {
+                handleSelect(currency, currency.code);
+              }}
             >
               <img
                 src={currency.flag}

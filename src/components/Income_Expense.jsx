@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
 import { UserDataContext } from "../Context/UserDataContext";
 import { VisibleContext } from "../Context/VisibleContext";
+import { CurrencyContext } from "../Context/CurrencyContext";
 
 export default function Income_Expense() {
   let { monthlyIncome, monthlyExpenses } = useContext(UserDataContext);
   let { isNotVisible } = useContext(VisibleContext);
+  let { cur } = useContext(CurrencyContext);
   // let formattedIncome = income.toLocalSting()
 
   return (
@@ -18,7 +20,7 @@ export default function Income_Expense() {
           <h3 className="text-sm text-teal-600 w-[50%]">Income</h3>
           <h3 className="text-xl font-medium">
             {!isNotVisible ? Number(monthlyIncome).toLocaleString() : "*******"}{" "}
-            MMK
+            {cur}
           </h3>
         </div>
         <div className="ps-5 ">
@@ -27,7 +29,7 @@ export default function Income_Expense() {
             {!isNotVisible
               ? Number(monthlyExpenses).toLocaleString()
               : "*******"}{" "}
-            MMK
+            {cur}
           </h3>
         </div>
       </div>
