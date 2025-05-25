@@ -42,7 +42,7 @@ export default function DailyDetails() {
         </svg>
       </div>
       <div className="flex flex-col gap-5 ">
-        <div className="flex justify-between">
+        <div className="flex justify-between mx-4">
           <h1 className="text-md font-medium">Daily Boucher</h1>
 
           <input
@@ -56,7 +56,7 @@ export default function DailyDetails() {
         {loading ? (
           <LoadingSpinner />
         ) : (
-          <div className="flex flex-col gap-5 items-center w-full ml-auto mr-auto h-[500px] overflow-y-auto">
+          <div className="flex flex-col gap-5 items-center w-full ml-auto mr-auto h-[515px] overflow-y-auto">
             {filteredDates.length > 0 ? (
               filteredDates.map(([date, txns]) => {
                 const totalForDate = txns.reduce((sum, txn) => {
@@ -70,7 +70,7 @@ export default function DailyDetails() {
                     className="flex flex-col border rounded-md w-full border-teal-800 shadow-lg"
                     key={date}
                   >
-                    <div className="flex justify-between w-[90%] ml-auto mr-auto py-3 font-medium">
+                    <div className="flex justify-between w-[87%] ml-auto mr-auto py-3 font-medium">
                       <h1>{date}</h1>
                       <div className="flex">
                         {[...Array(3)].map((_, i) => (

@@ -17,11 +17,11 @@ export default function Layout({ children }) {
   }, []);
   return (
     <div
-      className="flex flex-col ml-auto mr-auto items-center overflow-hidden h-screen"
+      className="flex flex-col ml-auto mr-auto w-full items-center overflow-hidden h-screen"
       style={{ height: "calc(var(--vh, 1vh) * 100)" }}
     >
       <Navbar />
-      <main>{children}</main>
+      <main className="w-[86%] md:w-[310px]">{children}</main>
     </div>
   );
 }

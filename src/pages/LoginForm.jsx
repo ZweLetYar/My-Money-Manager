@@ -83,7 +83,7 @@ export default function LoginForm() {
         {error && <p className="text-red-500 text-sm mt-2">{error.message}</p>}
 
         <div className="text-center text-sm text-gray-500 mt-4">
-          Don't have an account?{" "}
+          <p>Don't have an account?</p>
           <Link to={"/signup"} className="text-teal-600 font-medium">
             Sign up
           </Link>

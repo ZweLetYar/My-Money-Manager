@@ -10,7 +10,7 @@ export default function Home() {
   let { loading } = useContext(UserDataContext);
 
   return (
-    <>
+    <div className="md:w-[310px]">
       {loading ? (
         <LoadingSpinner />
       ) : (
@@ -21,6 +21,6 @@ export default function Home() {
           <RecentTransaction />
         </>
       )}
-    </>
+    </div>
   );
 }

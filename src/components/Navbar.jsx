@@ -12,7 +12,7 @@ export default function Navbar() {
   let { isPink, isOrange, isSkyblue, isIndigo } = useContext(ThemeContext);
   return (
     <div
-      className={`flex items-center w-[85%] justify-between rounded-sm mb-5 mt-3  text-white p-3 ${
+      className={`flex items-center  w-[85%] md:w-[320px] justify-between rounded-sm mb-5 mt-3  text-white p-3 ${
         isPink
           ? "bg-pink-400"
           : isOrange
@@ -21,7 +21,7 @@ export default function Navbar() {
           ? "bg-sky-400"
           : isIndigo
           ? "bg-indigo-400"
-          : "bg-teal-400"
+          : "bg-teal-600"
       }
             } `}
     >
