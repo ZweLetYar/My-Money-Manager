@@ -1,12 +1,33 @@
-# React + Vite
+# 💸 My Money Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, mobile-first personal finance tracker built with **React**, **Firebase**, and **Tailwind CSS**. It helps users manage income and expenses, switch themes, track currency values, and visualize data through dynamic charts.
 
-Currently, two official plugins are available:
+## 🌟 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 📈 Track income and expenses
+- 💹 Visualize spending with interactive charts
+- 🌗 five colors theme toggle
+- 🌍 Multi-currency support with real-time exchange rates
+- 🔐 User authentication (Firebase)
+- 📱 Mobile-first responsive design
+- 💾 Persistent data with Firebase Firestore
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **React** (UI & routing)
+- **Firebase** (Auth, Firestore, Hosting)
+- **Tailwind CSS** (Styling)
+- **React Router**
+- **Chart.js** or Recharts (for graphs)
+
+## 🚀 Live Demo
+
+👉 [View Live App](https://my-money-manager-47116.web.app/)
+
+## 🧪 Local Setup
+
+```bash
+git clone https://github.com/ZweLetYar/My-Money-Manager.git
+cd My-Money-Manager
+npm install
+npm start
